@@ -2,8 +2,12 @@ use std::slice::Windows;
 use bevy::prelude::*;
 use bevy::window::WindowResolution;
 use bevy_prototype_lyon::prelude::*;
+use bevy::input::ButtonInput;
 
 use sepax2d::prelude::*;
+use sepax2d::polygon::Polygon;
+use sepax2d::circle::Circle;
+
 use bevy_sepax2d::prelude::*;
 
 const MARGIN: f32 = 10.0;
@@ -112,14 +116,13 @@ fn setup_system(mut commands: Commands, mut windows: Query<&mut Window>, assets:
     commands.spawn(Camera2dBundle::default());
 
     let font = assets.load("PolandCanInto.otf");
-    let text_alignment = TextAlignment::Center;
     let text_style = TextStyle { font, font_size: 30.0, color: Color::rgba(0.8, 0.8, 0.8, 1.0) };
 
     commands.spawn(Text2dBundle
     {
-        text: Text::from_section("A and D to move, Space to jump \n \n W to change colliders", text_style.clone()).with_alignment(text_alignment),
+        text: Text::from_section("A and D to move, Space to jump \n \n W to change colliders", text_style.clone()),
         transform: Transform::from_xyz(0.0, 300.0, 0.0),
-        ..default()
+        ..Default::default()
     });
 
 }
@@ -221,19 +224,19 @@ fn velocity_system(mut query: Query<(&Velocity, &mut Transform)>, time: Res<Time
 
 }
 
-fn player_movement_input_system(keyboard: Res<Input<KeyCode>>, mut query: Query<&mut Velocity, With<Movable>>)
+fn player_movement_input_system(keyboard: Res<ButtonInput<KeyCode>>, mut query: Query<&mut Velocity, With<Movable>>)
 {
 
     if let Ok(mut velocity) = query.get_single_mut()
     {
 
-        if keyboard.pressed(KeyCode::A)
+        if keyboard.pressed(KeyCode::KeyA)
         {
 
             velocity.x = -SPEED;
 
         }
-        else if keyboard.pressed(KeyCode::D)
+        else if keyboard.pressed(KeyCode::KeyD)
         {
 
             velocity.x = SPEED;
@@ -257,13 +260,13 @@ fn player_movement_input_system(keyboard: Res<Input<KeyCode>>, mut query: Query<
 
 }
 
-fn player_collider_system(keyboard: Res<Input<KeyCode>>, mut query: Query<(&mut Path, &mut Sepax), With<Movable>>, mut colliders: ResMut<PlayerColliders>)
+fn player_collider_system(keyboard: Res<ButtonInput<KeyCode>>, mut query: Query<(&mut Path, &mut Sepax), With<Movable>>, mut colliders: ResMut<PlayerColliders>)
 {
 
     if let Ok((mut path, mut sepax)) = query.get_single_mut()
     {
 
-        if keyboard.just_pressed(KeyCode::W)
+        if keyboard.just_pressed(KeyCode::KeyW)
         {
 
             *sepax = colliders.next();
