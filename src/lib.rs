@@ -35,7 +35,7 @@
 //! To add a shape to your world, simply insert a [`Sepax`](components::Sepax) struct into any entity.
 //! 
 //! ```rust,no_run
-//! use bevy::prelude::*;
+//! use bevy;
 //! use sepax2d::prelude::*;
 //! use bevy_sepax2d::prelude::*;
 //! 
@@ -60,7 +60,7 @@
 //! underlying shapes without need to match the enum.
 //! 
 //! ```rust,no_run
-//! use bevy::prelude::*;
+//! use bevy;
 //! use sepax2d::prelude::*;
 //! use bevy_sepax2d::prelude::*;
 //! use bevy_sepax2d::prelude::Polygon;
@@ -94,7 +94,7 @@
 //! `serde` - Enables (De)Serialization of Convex and Sepax types for easy loading.
 
 #[cfg(feature = "debug")]
-use bevy::prelude::*;
+use bevy;
 
 #[cfg(feature = "debug")]
 use bevy_prototype_lyon::prelude::*;
@@ -140,9 +140,8 @@ pub enum Convex
 /// 
 /// Requires the "debug" feature.
 #[cfg(feature = "debug")]
-pub fn spawn_debug(commands: &mut Commands, convex: Convex, fill: Fill)
+pub fn spawn_debug(commands: &mut bevy::ecs::system::Commands, convex: Convex, fill: Fill)
 {
-
     let shape = Sepax::as_shape_bundle(&convex);
 
     commands.spawn((Sepax { convex },

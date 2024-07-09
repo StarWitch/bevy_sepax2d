@@ -122,7 +122,7 @@ fn setup_system(mut commands: Commands, mut windows: Query<&mut Window>, assets:
     {
         text: Text::from_section("A and D to move, Space to jump \n \n W to change colliders", text_style.clone()),
         transform: Transform::from_xyz(0.0, 300.0, 0.0),
-        ..default()
+        ..Default::default()
     });
 
 }
