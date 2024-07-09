@@ -63,6 +63,7 @@
 //! use bevy::prelude::*;
 //! use sepax2d::prelude::*;
 //! use bevy_sepax2d::prelude::*;
+//! use bevy_sepax2d::prelude::Polygon;
 //! 
 //! #[derive(Component)]
 //! struct Bullet;
@@ -102,6 +103,8 @@ use bevy_prototype_lyon::prelude::*;
 use serde::{Serialize, Deserialize};
 
 use sepax2d::prelude::*;
+use sepax2d::prelude::Polygon;
+use sepax2d::prelude::Circle;
 
 pub mod plugin;
 pub mod components;
